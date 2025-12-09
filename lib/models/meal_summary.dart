@@ -21,4 +21,11 @@ class MealSummary {
       category: json['strCategory'] as String?,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'idMeal': id,
+    'strMeal': name,
+    'strMealThumb': thumb,
+    'strCategory': category,
+  };
 }

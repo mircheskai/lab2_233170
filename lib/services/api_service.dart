@@ -78,7 +78,7 @@ class ApiService {
       final data = json.decode(resp.body) as Map<String, dynamic>;
       final meals = data['meals'] as List<dynamic>? ?? [];
       if (meals.isEmpty) throw Exception('No random meal');
-
+      
       return MealDetail.fromJson(meals.first as Map<String, dynamic>);
     }
     throw Exception('Failed to fetch random meal');

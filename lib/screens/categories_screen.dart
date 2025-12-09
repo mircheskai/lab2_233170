@@ -3,6 +3,9 @@ import '../services/api_service.dart';
 import '../models/category.dart';
 import '../widgets/category_card.dart';
 import 'meal_detail_screen.dart';
+import 'meals_by_category_screen.dart';
+import 'favorites_screen.dart';
+import '../models/meal_detail.dart';
 
 
 class CategoriesScreen extends StatefulWidget {
@@ -56,54 +59,59 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     }
   }
 
+  void _openFavorites() {
+    Navigator.pushNamed(context, FavoritesScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Categories'),
-          actions: [
-            IconButton(onPressed: _openRandom, icon: const Icon(Icons.casino), tooltip: 'Random Recipe')
-          ],
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: TextField(
-                controller: _controller,
-                decoration: const InputDecoration(
-                  hintText: 'Search categories...',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: _onSearch,
+      appBar: AppBar(
+        title: const Text('Categories'),
+        actions: [
+          IconButton(onPressed: _openFavorites, icon: const Icon(Icons.favorite), tooltip: 'Favorites'),
+          IconButton(onPressed: _openRandom, icon: const Icon(Icons.casino), tooltip: 'Random Recipe')
+        ],
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: TextField(
+              controller: _controller,
+              decoration: const InputDecoration(
+                hintText: 'Search categories...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
               ),
+              onChanged: _onSearch,
             ),
-            Expanded(
-              child: _loading
-                  ? const Center(child: CircularProgressIndicator())
-                  : GridView.builder(
-                padding: const EdgeInsets.all(8.0),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,          // ← 1 card per row
-                  childAspectRatio: 3,        // ← adjust height/width of the card
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                ),
-                itemCount: _filtered.length,
-                itemBuilder: (context, i) {
-                  final cat = _filtered[i];
-                  return CategoryCard(
-                    category: cat,
-                    onTap: () {
-                      Navigator.pushNamed(context, '/mealsByCategory', arguments: {'category': cat.name});
-                    },
-                  );
-                },
+          ),
+          Expanded(
+            child: _loading
+                ? const Center(child: CircularProgressIndicator())
+                : GridView.builder(
+              padding: const EdgeInsets.all(8.0),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                childAspectRatio: 3,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
               ),
-            )
-          ],
-        )
+              itemCount: _filtered.length,
+              itemBuilder: (context, i) {
+                final cat = _filtered[i];
+                return CategoryCard(
+                  category: cat,
+                  onTap: () {
+                    Navigator.pushNamed(context, '/mealsByCategory', arguments: {'category': cat.name});
+                  },
+                );
+              },
+            ),
+          )
+        ],
+      )
     );
   }
 }

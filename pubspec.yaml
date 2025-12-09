@@ -1,5 +1,5 @@
-name: lab2_233170
-description: "A new Flutter project."
+name: lab_2_mis
+description: "TheMealDB lab"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -30,9 +30,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^1.6.0
+  http: ^1.5.0
   cached_network_image: ^3.4.1
   url_launcher: ^6.3.2
+  firebase_core: ^4.2.1
+  firebase_auth: ^6.1.2
+  image_picker: ^1.2.1
+  cloud_firestore: ^6.1.0
+  firebase_messaging: ^16.0.4
+  flutter_local_notifications: ^19.5.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
